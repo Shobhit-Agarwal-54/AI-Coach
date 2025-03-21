@@ -38,7 +38,7 @@ model Assessment{
   userId String
   user User @relation(fields: [userId],references: [id])
   quizScore Float
-  questions Json[]  //Array of{question,answer,userAnswer,isCorrect}
+  questions Json[]  //Array of{question,answer,userAnswer,isCorrect,explaination}
   category String   //"Technicial","Behavioral"
   improvementTip String? //AI-generated Improvement Tip
   createdAt DateTime @default(now())
