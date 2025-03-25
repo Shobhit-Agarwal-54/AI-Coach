@@ -16,6 +16,7 @@ import { generateQuiz, saveQuizResult } from "@/actions/interview";
 // import QuizResult from "./quiz-result";
 import useFetch from "@/hooks/use-fetch";
 import { BarLoader } from "react-spinners";
+import QuizResult from "./quiz-result";
 
 const Quiz = () => 
     {
@@ -90,6 +91,24 @@ const Quiz = () =>
         toast.error(error.message || "Failed to save quiz results");
       }
     };
+
+    const startNewQuiz = () => {
+      setCurrentQuestion(0);
+      setAnswers([]);
+      setShowExplanation(false);
+      generateQuizFn();
+      setResultData(null);
+    };
+  
+    // Show results if quiz is completed
+    // resultData is the row of database which got saved
+    if (resultData) {
+      return (
+        <div className="mx-2">
+          <QuizResult result={resultData} onStartNew={startNewQuiz} />
+        </div>
+      );
+    }
 
     if (generatingQuiz) {
       return <BarLoader className="mt-4" width={"100%"} color="gray" />;
